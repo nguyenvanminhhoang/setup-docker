@@ -1,0 +1,63 @@
+# Version docker-compose
+version: "3"
+
+# Define network [option: driver]
+networks: 
+    my-network:
+
+# Service is place containing container
+services:
+  # Container web: Install CentOS 7, PHP 7.4, Composer, GIT
+  web:
+    build:
+      # Folder containing web server
+      context: ./server
+      # Dockerfile for setup container web
+      dockerfile: Dockerfile
+    # Setting container web dependent container mysql. Or use link
+    depends_on:
+      # Container name of MySQL
+      - mysql
+    # Config port  
+    ports:
+      - "4000:80"
+    # Mount the data of the local machine to server
+    volumes:
+      # Source code
+      - ./src:/var/www/html
+      # Config vitual host
+      - ./server/myconf.conf:/etc/httpd/conf.d/default.conf
+    # Use the network defined above
+    networks:
+      - my-network
+  # MySQL    
+  mysql:
+    # Image mysql on DockerHub
+    image: mysql:5.7
+    # Name of container
+    container_name: mysql
+    # Restart when stopped
+    restart: unless-stopped
+    tty: true
+    # Config port  
+    ports: 
+        - "4306:3306"
+    # Mount the data of the local machine to server
+    volumes: 
+        - ./database:/var/lib/mysql
+    # Setting environment variable
+    environment: 
+        # Database name
+        MYSQL_DATABASE: demo
+        # Password for super user
+        MYSQL_ROOT_PASSWORD: root
+        # Username
+        MYSQL_USER: hoangnvm
+        # Password
+        MYSQL_PASSWORD: hoangnvm
+        SERVICE_TAGS: dev
+        # Service name (Edit DB_HOST in file .env). Must have the same name as the container 
+        SERVICE_NAME: mysql
+    # Use the network defined above
+    networks: 
+        - my-network
