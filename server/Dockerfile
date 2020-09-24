@@ -13,8 +13,20 @@ RUN rpm -Uvh http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 RUN yum -y --enablerepo=remi-php74 install php
 RUN yum install -y --enablerepo=remi-php74 php-pdo
 RUN yum install -y --enablerepo=remi-php74 php-pdo_mysql
+RUN yum install -y --enablerepo=remi-php74 php-mysqli
+RUN yum install -y --enablerepo=remi-php74 php-pdo_pgsql
+RUN yum install -y --enablerepo=remi-php74 php-pgsql
 RUN yum install -y --enablerepo=remi-php74 php-mbstring
-RUN yum install -y --enablerepo=remi-php74 php-dom
+RUN yum install -y --enablerepo=remi-php74 php-curl
+RUN yum install -y --enablerepo=remi-php74 php-ctype
+RUN yum install -y --enablerepo=remi-php74 php-xml
+RUN yum install -y --enablerepo=remi-php74 php-json
+RUN yum install -y --enablerepo=remi-php74 php-tokenizer
+RUN yum install -y --enablerepo=remi-php74 php-openssl
+RUN yum install -y --enablerepo=remi-php74 php-gd
+RUN yum install -y --enablerepo=remi-php74 php-zip
+RUN yum install -y --enablerepo=remi-php74 php-gmp
+RUN yum install -y --enablerepo=remi-php74 php-bcmath
 
 # Install ZIP UNZIP
 RUN yum install -y php-cli php-zip wget unzipcom
@@ -26,6 +38,8 @@ RUN yum -y install git
 # Install COMPOSER
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
+
+COPY php.ini etc/
 
 EXPOSE 80
 
