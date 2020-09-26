@@ -14,6 +14,8 @@ services:
       context: ./server
       # Dockerfile for setup container web
       dockerfile: Dockerfile
+    # Name of container
+    container_name: server
     # Setting container web dependent container mysql. Or use link
     depends_on:
       # Container name of MySQL
@@ -44,20 +46,17 @@ services:
         - "4306:3306"
     # Mount the data of the local machine to server
     volumes: 
-        - ./database:/var/lib/mysql
+        - ./db_backup:/var/lib/mysql
     # Setting environment variable
     environment: 
         # Database name
-        MYSQL_DATABASE: demo
+        MYSQL_DATABASE: my_db
         # Password for super user
         MYSQL_ROOT_PASSWORD: root
         # Username
-        MYSQL_USER: hoangnvm
+        MYSQL_USER: my_username
         # Password
-        MYSQL_PASSWORD: hoangnvm
-        SERVICE_TAGS: dev
-        # Service name (Edit DB_HOST in file .env). Must have the same name as the container 
-        SERVICE_NAME: mysql
+        MYSQL_PASSWORD: my_password
     # Use the network defined above
     networks: 
         - my-network
