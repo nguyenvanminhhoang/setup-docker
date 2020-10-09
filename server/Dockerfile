@@ -27,6 +27,7 @@ RUN yum install -y --enablerepo=remi-php74 php-gd
 RUN yum install -y --enablerepo=remi-php74 php-zip
 RUN yum install -y --enablerepo=remi-php74 php-gmp
 RUN yum install -y --enablerepo=remi-php74 php-bcmath
+RUN yum install -y --enablerepo=remi-php74 php-intl
 
 # Install ZIP UNZIP
 RUN yum install -y php-cli php-zip wget unzipcom

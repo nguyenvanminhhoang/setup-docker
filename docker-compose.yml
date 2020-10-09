@@ -8,7 +8,7 @@ networks:
 # Service is place containing container
 services:
   # Container web: Install CentOS 7, PHP 7.4, Composer, GIT
-  web:
+  centos:
     build:
       # Folder containing web server
       context: ./server
@@ -22,7 +22,7 @@ services:
       - mysql
     # Config port  
     ports:
-      - "4000:80"
+      - "1412:80"
     # Mount the data of the local machine to server
     volumes:
       # Source code
